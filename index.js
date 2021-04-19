@@ -152,6 +152,7 @@ client.on("message", function(message) {
       }
     }
 
+//DONE
   else if (command === "documents") {
     message.delete({timeout: 100})
     .then(msg => console.log(`Deleted message from ${msg.author.username} after 10 miliseconds`))
