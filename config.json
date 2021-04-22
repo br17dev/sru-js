@@ -1,3 +1,5 @@
 {
-  "BOT_TOKEN" : "ODI2NzY0NzYzODQ4OTAwNjQ5.YGROsA.P20En16RDBgXFwobcMywu8G20Hw"
+  "token" : "ODI2NzY0NzYzODQ4OTAwNjQ5.YGROsA.P20En16RDBgXFwobcMywu8G20Hw",
+  "prefix" : "-",
+  "bot_version" : "v0.1"
 }
