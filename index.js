@@ -289,14 +289,22 @@ client.on("message", function(message) {
         const channel = client.channels.cache.find(channel => channel.name === "sru-callout")
         channel.send("**__Welcome to the SRU Callout Chat__**\n\nThink of this channel as your pager for SRU deployment notifications. Any @SRU Tac Response can notify of an active situation and request additional units to assist in server. If you have sufficient units in server already, there is no need to request them here. There must be at least 3 spots open in your server to make a callout request here!\n\n**Instructions:**\n```SRU Officers requesting deployment of additional SRU Officers to their server can use the following command:\n-deploy [Server #] [Brief Description of Call (Barricaded Person, Hostage Situation, etc.)]\n\nSRU Officers wishing to clear a previous request once the situation is Code 4 should use the below command\n\n-clear [Callout ID]```\nWe hope this helps provide better response times and numbers for responses. Anyone caught abusing the features of this system will lose access to it for a temporary or indefinite time depending on the circumstances. If you have any issues or questions regarding this bot, see Ben R. 5S-34.")
       } else {
-        return message.reply(`You must be an SRU Supervisor or above in order to use this command. If you think this is a mistake, please contact a member of the SRU Supervisory Team.`)
-      }
+        message.channel.send(`You must be an SRU Supervisor or above in order to use this command. If you think this is a mistake, please contact a member of the SRU Supervisory Team.`).then(message => message.delete(3000));
+			}
     }
 
   else if (command === "info"){
     message.delete({timeout: 100})
     .then(msg => console.log(`Deleted message from ${msg.author.username} after 10 miliseconds`))
     .catch(console.error);
+
+    let days = Math.floor(client.uptime / 86400000);
+    let hours = Math.floor(client.uptime / 3600000) % 24;
+    let minutes = Math.floor(client.uptime / 60000) % 60;
+    let seconds = Math.floor(client.uptime / 1000) % 60;
+
+    const uptime = `${days}d ${hours}h ${minutes}m ${seconds}s`
+
     const infoeb = new Discord.MessageEmbed()
     .setColor(`#000000`)
     .setTitle(`SRU Discord Bot Information`)
@@ -306,6 +314,7 @@ client.on("message", function(message) {
       {name:`Version:`, value:`${config.bot_version}`,inline: true},
       {name:`Developers:`, value:`<@!427518474139467796>`,inline:true},
       {name:`Ping:`, value:`${Date.now() - message.createdTimestamp}ms`,inline:true},
+			{name:`Uptime:`, value:`${uptime}`, inline:true},
     )
     .setTimestamp()
     .setFooter(`San Andreas Strategic Response Unit 2021`)
