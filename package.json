@@ -1,5 +1,5 @@
 {
-  "name": "json-sru",
+  "name": "js-sru",
   "version": "1.0.0",
   "description": "SRU Discord Bot",
   "main": "index.js",
@@ -9,6 +9,7 @@
   "author": "Ben R.",
   "license": "ISC",
   "dependencies": {
+    "discord-reply": "^0.1.2",
     "discord.js": "^12.5.3"
   }
 }
