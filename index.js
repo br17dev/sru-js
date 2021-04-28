@@ -1,9 +1,9 @@
 const Discord = require("discord.js");
 const config = require("./config.json");
-require('discord-reply');
+require("discord-reply");
 const client = new Discord.Client();
-
 const prefix = config.prefix;
+
 
 client.on("ready", function(){
 
@@ -31,6 +31,8 @@ client.on("message", function(message) {
   const commandBody = message.content.slice(prefix.length);
   const args = commandBody.split(/ +/g);
   const command = args.shift().toLowerCase();
+
+	const logchannel = client.channels.cache.find(channel => channel.name === "audit-log")
 
   // ALL COMMANDS AVAILABLE
 
@@ -112,7 +114,7 @@ client.on("message", function(message) {
       }
 
       // Negotiator
-      else if (args[0] === `negotatior`) {
+      else if (args[0] === `negotiator`) {
         const negotatioreb = new Discord.MessageEmbed()
         .setColor(`#000000`)
         .setTitle(`New Crisis Negotiator Certification Training`)
@@ -325,9 +327,36 @@ client.on("message", function(message) {
     .catch(console.error);
 
 		if(message.member.roles.cache.some(r => r.name === "SRU Medic") || message.member.roles.cache.some(r => r.name === "SRU Officer I") || message.member.roles.cache.some(r => r.name === "SRU Officer II") || message.member.roles.cache.some(r => r.name === "SRU Specialist") || message.member.roles.cache.some(r => r.name === "SRU Supervisor") || message.member.roles.cache.some(r => r.name === "SRU Commander") || message.member.roles.cache.some(r => r.name === "SRU Deputy Director") || message.member.roles.cache.some(r => r.name === "SRU Director")) {
-			if (args[0] === 1 || args[0] === 2 || args[0] === 3 || args[0] === 4 || args[0] === 5 || args[0] === 6 || args[0] === `X` || args[0] === `Y` || ) {
-				
+			if (args[0] === `1` || args[0] === `2` || args[0] === `3` || args[0] === `4` || args[0] === `5` || args[0] === `6` || args[0] === `X` || args[0] === `Y`) {
 
+				let desc = args.slice(1).join(` `);
+				let channel = client.channels.cache.find(channel => channel.name === "sru-callout")
+
+				if (desc === ""){
+					channel.send(`<@&>\nA request for additional SRU Officers has been made by ${message.author}!\nPlease can all available officers make their way to **Server ${args[0]}** and the respective SRU Tac Channel!\n\n**Notes:**\nN/A.\n\n**Callout ID:**\nLoading...`)
+					.then(msg => {
+						setTimeout(function(){
+							msg.edit(`<@&>\nA request for additional SRU Officers has been made by ${message.author}!\nPlease can all available officers make their way to **Server ${args[0]}** and the respective SRU Tac Channel!\n\n**Notes:**\nN/A.\n\n**Callout ID:**\n${msg.id}`);
+						},1000)
+						})
+
+					logchannel.send(`${message.author} (${message.author.username}#${message.author.discriminator} | ${message.author.id}) requested additional SRU officers to server **${args[0]}**. Reason: N/A.`)
+
+				} else {
+					channel.send(`<@&>\nA request for additional SRU Officers has been made by ${message.author}!\nPlease can all available officers make their way to **Server ${args[0]}** and the respective SRU Tac Channel!\n\n**Notes:**\n${desc}.`)
+					.then(msg => {
+						setTimeout(function(){
+							msg.edit(`<@&>\nA request for additional SRU Officers has been made by ${message.author}!\nPlease can all available officers make their way to **Server ${args[0]}** and the respective SRU Tac Channel!\n\n**Notes:**\n${desc}.\n\n**Callout ID:**\n${msg.id}`)
+						},1000)
+					})
+					logchannel.send(`${message.author} (${message.author.username}#${message.author.discriminator} | ${message.author.id}) requested additional SRU officers to server **${args[0]}**. Reason: ${desc}.`)
+				}
+			} else {
+				message.lineReply(`Please make sure to follow the proper format, as outlines in #sru-callout.`)
+				.then(msg => {
+					msg.delete({ timeout: 5000})
+				})
+				.catch(console.error);
 			}
 		} else {
 			message.lineReply(`You must be a full time member of SRU in order to use this command. If you think this is a mistake, please contact a member of the SRU Supervisory Team`)
@@ -344,27 +373,55 @@ client.on("message", function(message) {
     .catch(console.error);
 
 		if(message.member.roles.cache.some(r => r.name === "SRU Medic") || message.member.roles.cache.some(r => r.name === "SRU Officer I") || message.member.roles.cache.some(r => r.name === "SRU Officer II") || message.member.roles.cache.some(r => r.name === "SRU Specialist") || message.member.roles.cache.some(r => r.name === "SRU Supervisor") || message.member.roles.cache.some(r => r.name === "SRU Commander") || message.member.roles.cache.some(r => r.name === "SRU Deputy Director") || message.member.roles.cache.some(r => r.name === "SRU Director")) {
-			console.log(`true`);
-		} else {
-			message.lineReply(`You must be a full time member of SRU in order to use this command. If you think this is a mistake, please contact a member of the SRU Supervisory Team`)
-			.then(msg => {
-				msg.delete({ timeout: 5000})
-			})
-			.catch(console.error);
+			if (args.length != 1 ){
+				message.lineReply(`Please make sure to follow the proper command format.`)
+				.then(msg => {
+			    msg.delete({ timeout: 5000 })
+			  })
+			  .catch(console.error);
+			} else {
+				if(message.channel.id === `830412292175822912`) {
+					if(args[0] === `836257707371659264`) {
+						message.lineReply(`You cannot delete this message.`)
+		  			.then(message => {
+							message.delete({timeout:2000})
+						})
+		  			.catch(console.error);
+					}
+					else {
+						message.channel.messages.fetch(args[0])
+	  			.then(message => {
+						message.delete({timeout:2000})
+						logchannel.send(`${message.author} (${message.author.username}#${message.author.discriminator} | ${message.author.id}) has cleared a deployment request with the ID of ${args[0]}`)
+					})
+	  			.catch(console.error);
+				}
+			} else {
+				message.lineReply(`Please make sure to utilise this command in the appropriate channel <#830412292175822912>.`)
+				.then(msg => {
+					msg.delete({ timeout: 5000})
+				})
+				.catch(console.error);
+			}
 		}
+
+	} else {
+		message.lineReply(`You must be a full time member of SRU in order to use this command. If you think this is a mistake, please contact a member of the SRU Supervisory Team`)
+		.then(msg => {
+			msg.delete({ timeout: 5000})
+		})
+		.catch(console.error);
 	}
+}
 
   else if (command === "info"){
-		message.delete({ timeout: 5000 })
-    .then(msg => console.log(`Deleted message from ${msg.author.username} after 5000 miliseconds`))
-    .catch(console.error);
 
     let days = Math.floor(client.uptime / 86400000);
     let hours = Math.floor(client.uptime / 3600000) % 24;
     let minutes = Math.floor(client.uptime / 60000) % 60;
     let seconds = Math.floor(client.uptime / 1000) % 60;
 
-    const uptime = `${days}d ${hours}h ${minutes}m ${seconds}s`
+    var uptime = `${days}d ${hours}h ${minutes}m ${seconds}s`
 
     const infoeb = new Discord.MessageEmbed()
     .setColor(`#000000`)
@@ -376,10 +433,13 @@ client.on("message", function(message) {
       {name:`Developers:`, value:`<@!427518474139467796>`,inline:true},
       {name:`Ping:`, value:`${Date.now() - message.createdTimestamp}ms`,inline:true},
 			{name:`Uptime:`, value:`${uptime}`, inline:true},
+			{name:`Prefix:`, value:`${config.prefix}`,inline:true},
+			{name:`Changelog:`, value: `TBC`, inline:true},
     )
     .setTimestamp()
     .setFooter(`San Andreas Strategic Response Unit 2021`)
     message.lineReply(infoeb)
+		logchannel.send(`${message.author} (${message.author.username}#${message.author.discriminator} | ${message.author.id}) has used the info command.`)
 
   }
 });
