@@ -233,6 +233,7 @@ client.on("message", function(message) {
     message.delete({timeout: 5000})
     .then(msg => console.log(`Deleted message from ${msg.author.username} after 5000 miliseconds`))
     .catch(console.error);
+
     // Permission Check - SRU Supervisor+
     if(message.member.roles.cache.some(r => r.name === "SRU Supervisor") || message.member.roles.cache.some(r => r.name === "SRU Commander") || message.member.roles.cache.some(r => r.name === "SRU Deputy Director") || message.member.roles.cache.some(r => r.name === "SRU Director")) {
       const channel = client.channels.cache.find(channel => channel.name === "documents")
@@ -294,6 +295,7 @@ client.on("message", function(message) {
       .setTimestamp()
       .setFooter(`San Andreas Strategic Response Unit 2021`);
       channel.send(docseb)
+
     } else {
       message.lineReply(`You must be an SRU Supervisor or above in order to use this command. If you think this is a mistake, please contact a member of the SRU Supervisory Team.`)
 			.then(msg => {
@@ -372,23 +374,27 @@ client.on("message", function(message) {
     .then(msg => console.log(`Deleted message from ${msg.author.username} after 5000 miliseconds`))
     .catch(console.error);
 
+		let calloutmsg = message.channel.messages.fetch(args[0])
+		console.log(calloutmsg);
+
 		if(message.member.roles.cache.some(r => r.name === "SRU Medic") || message.member.roles.cache.some(r => r.name === "SRU Officer I") || message.member.roles.cache.some(r => r.name === "SRU Officer II") || message.member.roles.cache.some(r => r.name === "SRU Specialist") || message.member.roles.cache.some(r => r.name === "SRU Supervisor") || message.member.roles.cache.some(r => r.name === "SRU Commander") || message.member.roles.cache.some(r => r.name === "SRU Deputy Director") || message.member.roles.cache.some(r => r.name === "SRU Director")) {
 			if (args.length != 1 ){
-				message.lineReply(`Please make sure to follow the proper command format.`)
+				message.lineReply(`Please make sure to follow the proper format!`)
 				.then(msg => {
 			    msg.delete({ timeout: 5000 })
 			  })
 			  .catch(console.error);
+
 			} else {
 				if(message.channel.id === `830412292175822912`) {
-					if(args[0] === `836257707371659264`) {
+					if(args[0] === `836257707371659264`) { // to be changed with the original callout message ID
 						message.lineReply(`You cannot delete this message.`)
 		  			.then(message => {
 							message.delete({timeout:2000})
 						})
 		  			.catch(console.error);
-					}
-					else {
+
+					} else {
 						message.channel.messages.fetch(args[0])
 	  			.then(message => {
 						message.delete({timeout:2000})
@@ -396,6 +402,7 @@ client.on("message", function(message) {
 					})
 	  			.catch(console.error);
 				}
+
 			} else {
 				message.lineReply(`Please make sure to utilise this command in the appropriate channel <#830412292175822912>.`)
 				.then(msg => {
