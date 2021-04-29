@@ -8,7 +8,7 @@ const prefix = config.prefix;
 client.on("ready", function(){
 
 	console.log(client.user.tag);
-	client.user.setActivity(`to Tac Channels`, { type: 'LISTENING' })
+	client.user.setActivity(`Tac Channels`, { type: 'LISTENING' })
 
 });
 
