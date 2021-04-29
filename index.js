@@ -8,14 +8,14 @@ const prefix = config.prefix;
 client.on("ready", function(){
 
 	console.log(client.user.tag);
-  client.user.setActivity(`${config.prefix}help`);
+	client.user.setActivity(`to Tac Channels`, { type: 'LISTENING' })
 
 });
 
 client.on("guildMemberAdd", (member) => {
 	const channel = client.channels.cache.find(channel => channel.name === "welcome")
 	const welcomeeb = new Discord.MessageEmbed()
-	.setColor(`#000000`)
+	.setColor(`#00ff00`)
 	.setTitle(`New Member Alert`)
 	.setThumbnail(`https://imgur.com/Wgggksj.png`)
 	.setDescription(`<@${member.id}> (${member.user.username}#${member.user.discriminator}) has joined the DoJRP SRU Discord and is awaiting verification and permissions.`)
@@ -31,8 +31,6 @@ client.on("message", function(message) {
   const commandBody = message.content.slice(prefix.length);
   const args = commandBody.split(/ +/g);
   const command = args.shift().toLowerCase();
-
-	const logchannel = client.channels.cache.find(channel => channel.name === "audit-log")
 
   // ALL COMMANDS AVAILABLE
 
@@ -342,8 +340,6 @@ client.on("message", function(message) {
 						},1000)
 						})
 
-					logchannel.send(`${message.author} (${message.author.username}#${message.author.discriminator} | ${message.author.id}) requested additional SRU officers to server **${args[0]}**. Reason: N/A.`)
-
 				} else {
 					channel.send(`<@&>\nA request for additional SRU Officers has been made by ${message.author}!\nPlease can all available officers make their way to **Server ${args[0]}** and the respective SRU Tac Channel!\n\n**Notes:**\n${desc}.`)
 					.then(msg => {
@@ -351,7 +347,6 @@ client.on("message", function(message) {
 							msg.edit(`<@&>\nA request for additional SRU Officers has been made by ${message.author}!\nPlease can all available officers make their way to **Server ${args[0]}** and the respective SRU Tac Channel!\n\n**Notes:**\n${desc}.\n\n**Callout ID:**\n${msg.id}`)
 						},1000)
 					})
-					logchannel.send(`${message.author} (${message.author.username}#${message.author.discriminator} | ${message.author.id}) requested additional SRU officers to server **${args[0]}**. Reason: ${desc}.`)
 				}
 			} else {
 				message.lineReply(`Please make sure to follow the proper format, as outlines in #sru-callout.`)
@@ -374,9 +369,6 @@ client.on("message", function(message) {
     .then(msg => console.log(`Deleted message from ${msg.author.username} after 5000 miliseconds`))
     .catch(console.error);
 
-		let calloutmsg = message.channel.messages.fetch(args[0])
-		console.log(calloutmsg);
-
 		if(message.member.roles.cache.some(r => r.name === "SRU Medic") || message.member.roles.cache.some(r => r.name === "SRU Officer I") || message.member.roles.cache.some(r => r.name === "SRU Officer II") || message.member.roles.cache.some(r => r.name === "SRU Specialist") || message.member.roles.cache.some(r => r.name === "SRU Supervisor") || message.member.roles.cache.some(r => r.name === "SRU Commander") || message.member.roles.cache.some(r => r.name === "SRU Deputy Director") || message.member.roles.cache.some(r => r.name === "SRU Director")) {
 			if (args.length != 1 ){
 				message.lineReply(`Please make sure to follow the proper format!`)
@@ -398,8 +390,7 @@ client.on("message", function(message) {
 						message.channel.messages.fetch(args[0])
 	  			.then(message => {
 						message.delete({timeout:2000})
-						logchannel.send(`${message.author} (${message.author.username}#${message.author.discriminator} | ${message.author.id}) has cleared a deployment request with the ID of ${args[0]}`)
-					})
+						})
 	  			.catch(console.error);
 				}
 
@@ -446,9 +437,12 @@ client.on("message", function(message) {
     .setTimestamp()
     .setFooter(`San Andreas Strategic Response Unit 2021`)
     message.lineReply(infoeb)
-		logchannel.send(`${message.author} (${message.author.username}#${message.author.discriminator} | ${message.author.id}) has used the info command.`)
-
   }
+
+	else if (commmand === "help") {
+		return
+
+	}
 });
 
 client.login(config.token);
