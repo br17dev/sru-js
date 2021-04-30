@@ -71,8 +71,7 @@ client.on("message", function(message) {
         .setTimestamp()
         .setFooter(`San Andreas Strategic Response Unit 2021`);
 
-        channel.send("<@&>")
-        channel.send(maritimeeb)
+        channel.send(`<@&> <@&>`, { embed: maritimeeb,});
       }
 
       // Tactical Pilot
@@ -90,8 +89,7 @@ client.on("message", function(message) {
         .setTimestamp()
         .setFooter(`San Andreas Strategic Response Unit 2021`);
 
-        channel.send("<@&>")
-        channel.send(tacpiloteb)
+        channel.send(`<@&> <@&>`, { embed: tacpiloteb,});
       }
 
       // Sniper
@@ -109,13 +107,12 @@ client.on("message", function(message) {
         .setTimestamp()
         .setFooter(`San Andreas Strategic Response Unit 2021`);
 
-        channel.send("<@&>")
-        channel.send(snipereb)
+        channel.send(`<@&> <@&>`, { embed: snipereb,});
       }
 
       // Negotiator
       else if (args[0] === `negotiator`) {
-        const negotatioreb = new Discord.MessageEmbed()
+        const negotiatoreb = new Discord.MessageEmbed()
         .setColor(`#000000`)
         .setTitle(`New Crisis Negotiator Certification Training`)
         .setThumbnail(`https://imgur.com/Wgggksj.png`)
@@ -128,8 +125,7 @@ client.on("message", function(message) {
         .setTimestamp()
         .setFooter(`San Andreas Strategic Response Unit 2021`);
 
-    		channel.send("<@&>")
-        channel.send(negotatioreb)
+    		channel.send(`<@&> <@&>`, { embed: negotiatoreb,});
       }
 
       // Tac Med
@@ -147,8 +143,7 @@ client.on("message", function(message) {
         .setTimestamp()
         .setFooter(`San Andreas Strategic Response Unit 2021`);
 
-    		channel.send("<@&>")
-        channel.send(tacmedeb)
+    		channel.send(`<@&> <@&>`, { embed: tacmedeb,});
       }
 
       // EOD
@@ -166,8 +161,7 @@ client.on("message", function(message) {
         .setTimestamp()
         .setFooter(`San Andreas Strategic Response Unit 2021`);
 
-    		channel.send("<@&>")
-        channel.send(eodeb)
+    		channel.send(`<@&> <@&>`, { embed: eodeb,});
       }
 
 			// In Game
@@ -185,8 +179,7 @@ client.on("message", function(message) {
 				.setTimestamp()
 				.setFooter(`San Andreas Strategic Response Unit 2021`);
 
-				channel.send("<@&>")
-				channel.send(ingameeb)
+				channel.send(`<@&> <@&>`, { embed: ingameeb,});
 
 			}
 
@@ -205,8 +198,7 @@ client.on("message", function(message) {
 				.setTimestamp()
 				.setFooter(`San Andreas Strategic Response Unit 2021`);
 
-				channel.send("<@&>")
-				channel.send(inclasseb)
+				channel.send(`<@&> <@&>`, { embed: inclasseb,});
 
 			}
 
