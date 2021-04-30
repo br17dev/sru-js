@@ -21,9 +21,7 @@ client.on("guildMemberAdd", (member) => {
 	.setDescription(`<@!${member.id}> (${member.user.username}#${member.user.discriminator}) has joined the DoJRP SRU Discord and is awaiting verification and permissions.`)
 	.setFooter(`San Andreas Strategic Response Unit 2021`)
 	.setTimestamp()
-	channel.send('This is a normal message.', {
- embed: welcomeeb,
-});
+	channel.send(welcomeeb)
 });
 
 client.on("message", function(message) {
