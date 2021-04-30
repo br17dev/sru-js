@@ -152,7 +152,7 @@ client.on("message", function(message) {
         .setThumbnail(`https://imgur.com/Wgggksj.png`)
         .setDescription(`There will be a **SRU EOD Certification** training on **${args[1]}** at **${args[2]}**.\n\nThis training will be hosted by ${message.author}.\n`)
         .addFields(
-          { name: `Requirements:`, value: `- Must be a SRU Officer II+ within the San Andreas Strategic Response Unit\n- Must be able to attend for the whole duration of this training.\n- Must hold the rank of SRU Officer I+ for a minimum of 30 days or longer.`},
+          { name: `Requirements:`, value: `- Must be a SRU Officer II+ within the San Andreas Strategic Response Unit\n- Must be able to attend for the whole duration of this training.\n- Must hold the rank of SRU Officer II+ for a minimum of 30 days or longer.`},
           { name: `Assistants:`, value: `Any SRU Officer who has already obtained the EOD Certification and wishes to assist, please react with <:SRUSpecialist:833487986787483648> and comment on the event link below.`},
           { name: `Event Link:`, value: `${args[3]}`},
         )
