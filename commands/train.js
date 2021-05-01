@@ -137,7 +137,7 @@ module.exports = {
             .setThumbnail(`https://imgur.com/Wgggksj.png`)
             .setDescription(`There will be a **SRU Basic In Game** training on **${args[1]}** at **${args[2]}**.\n\nThis training will be hosted by ${message.author}.\n`)
             .addFields(
-                { name: `Requirements:`, value: `- Must be an SRU Recruit within the San Andreas Strategic Response Unit\n- Must be able to attend for the whole duration of this training.\n- Must have completed and passed the Basic In Class Training.`},
+                { name: `Requirements:`, value: `- Must be an SRU Recruit within the San Andreas Strategic Response Unit\n- Must be able to attend for the whole duration of this training.\n- Must have completed and passed the Basic In Game Training.`},
                 { name: `Assistants:`, value: `Any SRU Officer I+ who wishes to assist, please react with <:SRUSpecialist:833487986787483648> and comment on the event link below.`},
                 { name: `Event Link:`, value: `${args[3]}`},
             )
