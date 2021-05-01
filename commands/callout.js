@@ -6,7 +6,8 @@ module.exports = {
         .then(msg => console.log(`Deleted message from ${msg.author.username} after 5000 miliseconds`))
         .catch(console.error);
 
-        //Permission Check SRU Supervisor+
+        // Permission Check SRU Supervisor+
+        
         if(message.member.roles.cache.some(r => r.name === "SRU Supervisor") || message.member.roles.cache.some(r => r.name === "SRU Commander") || message.member.roles.cache.some(r => r.name === "SRU Deputy Director") || message.member.roles.cache.some(r => r.name === "SRU Director")) {
             const config = require('../config.json');
             const calloutchannel = client.channels.cache.find(channel => channel.name === "sru-callout")
