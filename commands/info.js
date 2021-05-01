@@ -19,7 +19,7 @@ module.exports = {
         .setDescription(``)
         .addFields(
         {name:`Version:`, value:`${config.bot_version}`,inline: true},
-        {name:`Developers:`, value:`<@!427518474139467796>`,inline:true},
+        {name:`Developers:`, value:`${config.developers}`,inline:true},
         {name:`Ping:`, value:`${Date.now() - message.createdTimestamp}ms`,inline:true},
                 {name:`Uptime:`, value:`${uptime}`, inline:true},
                 {name:`Prefix:`, value:`${config.prefix}`,inline:true},
