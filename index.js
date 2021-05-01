@@ -9,24 +9,23 @@ client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
 
-client.on("ready", function(){
-
-	console.log(client.user.tag);
-	client.user.setActivity(`Tac Channels`, { type: 'LISTENING' })
-  client.user.setUsername(`SA SRU`)
+client.on("guildMemberAdd", member => {
+  const channel = guild.channels.cache.find(channel => channel.name === "welcome")
+  const welcomeeb = new Discord.MessageEmbed()
+  .setColor(`#00ff00`)
+  .setTitle(`New Member Alert`)
+  .setThumbnail(`https://imgur.com/Wgggksj.png`)
+  .setDescription(`<@!${member.id}> (${member.user.username}#${member.user.discriminator}) has joined the DoJRP SRU Discord and is awaiting verification and permissions.`)
+  .setFooter(`San Andreas Strategic Response Unit 2021`)
+  .setTimestamp()
+  channel.send(welcomeeb)
 });
 
-client.on("guildMemberAdd", (member) => {
-	const channel = client.channels.cache.find(channel => channel.name === "welcome")
-	const welcomeeb = new Discord.MessageEmbed()
-	.setColor(`#00ff00`)
-	.setTitle(`New Member Alert`)
-	.setThumbnail(`https://imgur.com/Wgggksj.png`)
-	.setDescription(`<@!${member.id}> (${member.user.username}#${member.user.discriminator}) has joined the DoJRP SRU Discord and is awaiting verification and permissions.`)
-	.setFooter(`San Andreas Strategic Response Unit 2021`)
-	.setTimestamp()
-	channel.send(welcomeeb)
-});
+client.on("ready", () => {
+  console.log(client.user.tag);
+  client.user.setActivity(`Tac Channels`, { type: 'LISTENING' })
+
+})
 
 client.on("message", function(message) {
   if (message.author.bot) return;
