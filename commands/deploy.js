@@ -17,7 +17,7 @@ module.exports = {
 						setTimeout(function(){
 							msg.edit(`<@&>\nA request for additional SRU Officers has been made by ${message.author}!\nPlease can all available officers make their way to **Server ${args[0]}** and the respective SRU Tac Channel!\n\n**Notes:**\nN/A.\n\n**Callout ID:**\n${msg.id}`);
 						},1000)
-						})
+					})
 				} 
                 
                 else {

@@ -45,7 +45,11 @@ client.on("message", function(message) {
   } catch(error) {
     console.error(error);
     message.lineReply("There was an issue executing that command, the bot developers have been notified.");
-  }
+      .then(msg => {
+      msg.delete({ timeout: 5000 })
+    })
+    .catch(console.error);
+  
 });
 
 client.login(token);
