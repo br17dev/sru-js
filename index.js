@@ -13,7 +13,7 @@ client.on("ready", function(){
 
 	console.log(client.user.tag);
 	client.user.setActivity(`Tac Channels`, { type: 'LISTENING' })
-
+  client.user.setNickname(`SA SRU`)
 });
 
 client.on("guildMemberAdd", (member) => {
