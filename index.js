@@ -3,6 +3,7 @@ const fs = require("fs");
 const {prefix, token} = require("./config.json");
 
 require("discord-reply");
+
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
@@ -44,17 +45,17 @@ client.on("message", function(message) {
     command.execute(Discord, client, message, args);
   } catch(error) {
     console.error(error);
-    message.lineReply("There was an issue executing that command, the bot developers have been notified.");
+    message.lineReply("There was an issue executing that command, the bot developers have been notified.")
       .then(msg => {
       msg.delete({ timeout: 5000 })
-    })
+      })
     .catch(console.error);
-  
+  }
 });
 
 client.login(token);
 
-for(const file of commandFiles){
+for(const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
 }
