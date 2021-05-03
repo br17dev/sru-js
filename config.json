@@ -2,5 +2,6 @@
   "token" : "ODI2NzY0NzYzODQ4OTAwNjQ5.YGROsA.P20En16RDBgXFwobcMywu8G20Hw",
   "prefix" : "-",
   "bot_version" : "v0.5",
-  "developers" : ["<@!427518474139467796>"]
+  "developers" : ["<@!427518474139467796>"],
+  "footer" : "San Andreas Strategic Response Unit 2021"
 }

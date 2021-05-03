@@ -1,31 +1,107 @@
 const Discord = require("discord.js");
 const fs = require("fs");
-const {prefix, token} = require("./config.json");
+const {prefix, token, footer} = require("./config.json");
 
 require("discord-reply");
 
 const client = new Discord.Client();
-client.commands = new Discord.Collection();
 
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+
+for (const file of eventFiles) {
+	const event = require(`./events/${file}`);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args, Discord, client));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args, Discord, client));
+	}
+}
+
+client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
 
-client.on("guildMemberAdd", member => {
-  const channel = guild.channels.cache.find(channel => channel.name === "welcome")
-  const welcomeeb = new Discord.MessageEmbed()
-  .setColor(`#00ff00`)
-  .setTitle(`New Member Alert`)
-  .setThumbnail(`https://imgur.com/Wgggksj.png`)
-  .setDescription(`<@!${member.id}> (${member.user.username}#${member.user.discriminator}) has joined the DoJRP SRU Discord and is awaiting verification and permissions.`)
-  .setFooter(`San Andreas Strategic Response Unit 2021`)
-  .setTimestamp()
-  channel.send(welcomeeb)
+client.on("voiceStateUpdate", (oldState, newState) => {
+  // User joins voice channel from none
+  if (!oldState.channel && newState.channel) {
+    if(newState.channel.name.includes(`SRU Tac Channel`)) {
+      var logchannel = client.channels.cache.find(channel => channel.name === "audit-log");
+
+      var eb = new Discord.MessageEmbed()
+      .setColor('#00ff00')
+      .setTitle('Member Joined Tac Channel')
+      .addFields(
+        {name:'Officer:', value: `${newState.member.displayName} \n ${newState.member}`, inline: true},
+        {name:'Tac Channel:', value:`${newState.channel.name}`, inline: true},
+      )
+      .setTimestamp()
+      .setFooter(footer);
+      logchannel.send(eb)
+
+    }
+
+  } else if (oldState.channel && newState.channel) {
+      if(oldState.channel.name.includes('SRU Tac Channel') && newState.channel.name.includes('SRU Tac Channel')) {
+      var logchannel = client.channels.cache.find(channel => channel.name === "audit-log");
+
+      var eb = new Discord.MessageEmbed()
+      .setColor('#FFA500')
+      .setTitle('Member Switched Tac Channel')
+      .addFields(
+        {name:'Officer:', value: `${newState.member.displayName} \n ${newState.member}`, inline: true},
+        {name:'Old Tac Channel:', value:`${oldState.channel.name}`, inline: true},
+        {name:'New Tac Channel:', value:`${newState.channel.name}`, inline: true},
+      )
+      .setTimestamp()
+      .setFooter(footer);
+      logchannel.send(eb)
+
+    } else if(!oldState.channel.name.includes('SRU Tac Channel') && newState.channel.name.includes('SRU Tac Channel')) {
+      var logchannel = client.channels.cache.find(channel => channel.name === "audit-log");
+
+      var eb = new Discord.MessageEmbed()
+      .setColor('#00ff00')
+      .setTitle('Member Joined Tac Channel')
+      .addFields(
+        {name:'Officer:', value: `${newState.member.displayName} \n ${newState.member}`, inline: true},
+        {name:'New Tac Channel:', value:`${newState.channel.name}`, inline: true},
+      )
+      .setTimestamp()
+      .setFooter(footer);
+      logchannel.send(eb)
+    } else if(oldState.channel.name.includes('SRU Tac Channel') && !newState.channel.name.includes('SRU Tac Channel')) {
+        var logchannel = client.channels.cache.find(channel => channel.name === "audit-log");
+  
+        var eb = new Discord.MessageEmbed()
+        .setColor('#FF0000')
+        .setTitle('Member Left Tac Channel')
+        .addFields(
+          {name:'Officer:', value: `${oldState.member.displayName} \n ${oldState.member}`, inline: true},
+          {name:'Tac Channel:', value:`${oldState.channel.name}`, inline: true},
+        )
+        .setTimestamp()
+        .setFooter(footer);
+        logchannel.send(eb)
+
+    }
+
+  } else if (oldState.channel && !newState.channel) {
+    if(oldState.channel.includes('SRU Tac Channel'))
+      var logchannel = client.channels.cache.find(channel => channel.name === "audit-log");
+
+      var eb = new Discord.MessageEmbed()
+      .setColor('#FF0000')
+      .setTitle('Member Left Tac Channel')
+      .addFields(
+        {name:'Officer:', value: `${oldState.member.displayName} \n ${oldState.member}`, inline: true},
+        {name:'Tac Channel:', value:`${oldState.channel.name}`, inline: true},
+      )
+      .setTimestamp()
+      .setFooter(footer);
+      logchannel.send(eb)
+  } else {
+    return
+  }  
 });
-
-client.on("ready", () => {
-  console.log(client.user.tag);
-  client.user.setActivity(`Tac Channels`, { type: 'LISTENING' })
-
-})
 
 client.on("message", function(message) {
   if (message.author.bot) return;
