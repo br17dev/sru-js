@@ -18,12 +18,12 @@ module.exports = {
         .setThumbnail(`https://imgur.com/Wgggksj.png`)
         .setDescription(``)
         .addFields(
-        {name:`Version:`, value:`${config.bot_version}`,inline: true},
-        {name:`Developers:`, value:`${config.developers}`,inline:true},
-        {name:`Ping:`, value:`${Date.now() - message.createdTimestamp}ms`,inline:true},
-        {name:`Uptime:`, value:`${uptime}`, inline:true},
-        {name:`Prefix:`, value:`${config.prefix}`,inline:true},
-        {name:`Changelog:`, value: `TBC`, inline:true},
+            {name:`Version:`, value:`${config.bot_version}`,inline: true},
+            {name:`Developers:`, value:`${config.developers}`,inline:true},
+            {name:`Ping:`, value:`${Date.now() - message.createdTimestamp}ms`,inline:true},
+            {name:`Uptime:`, value:`${uptime}`, inline:true},
+            {name:`Prefix:`, value:`${config.prefix}`,inline:true},
+            {name:`Changelog:`, value: `TBC`, inline:true},
         )
         .setTimestamp()
         .setFooter(config.footer);
