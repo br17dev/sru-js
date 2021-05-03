@@ -5,7 +5,7 @@ module.exports = {
         message.delete({timeout: 5000})
         .then(msg => console.log(`Deleted message from ${msg.author.username} after 5000 miliseconds`))
         .catch(console.error);
-
+        const {footer} = require('../config.json')
         // Permission Check - SRU Specialist+
         if(message.member.roles.cache.some(r => r.name === "SRU Specialist") || message.member.roles.cache.some(r => r.name === "SRU Supervisor") || message.member.roles.cache.some(r => r.name === "SRU Commander") || message.member.roles.cache.some(r => r.name === "SRU Deputy Director") || message.member.roles.cache.some(r => r.name === "SRU Director")) {
 
@@ -37,7 +37,7 @@ module.exports = {
           { name: `Event Link:`, value: `${args[3]}`},
         )
         .setTimestamp()
-        .setFooter(`San Andreas Strategic Response Unit 2021`);
+        .setFooter(footer);
 
         channel.send(`<@&> <@&>`, { embed: maritimeeb,});
         } 
@@ -55,7 +55,7 @@ module.exports = {
           { name: `Event Link:`, value: `${args[3]}`},
         )
         .setTimestamp()
-        .setFooter(`San Andreas Strategic Response Unit 2021`);
+        .setFooter(footer);
 
         channel.send(`<@&> <@&>`, { embed: tacpiloteb,});
       }
@@ -91,7 +91,7 @@ module.exports = {
           { name: `Event Link:`, value: `${args[3]}`},
         )
         .setTimestamp()
-        .setFooter(`San Andreas Strategic Response Unit 2021`);
+        .setFooter(footer);
 
     		channel.send(`<@&> <@&>`, { embed: negotiatoreb,});
       }
@@ -109,7 +109,7 @@ module.exports = {
           { name: `Event Link:`, value: `${args[3]}`},
         )
         .setTimestamp()
-        .setFooter(`San Andreas Strategic Response Unit 2021`);
+        .setFooter(footer);
 
     		channel.send(`<@&> <@&>`, { embed: tacmedeb,});
       }
@@ -127,13 +127,13 @@ module.exports = {
           { name: `Event Link:`, value: `${args[3]}`},
         )
         .setTimestamp()
-        .setFooter(`San Andreas Strategic Response Unit 2021`);
+        .setFooter(footer);
 
     		channel.send(`<@&> <@&>`, { embed: eodeb,});
       }
 
-        // In Game
-        else if (args[0] === `ingame`) {
+      // In Game
+      else if (args[0] === `ingame`) {
             const ingameeb = new Discord.MessageEmbed()
             .setColor(`#000000`)
             .setTitle(`New Basic In Game Training`)
@@ -145,14 +145,14 @@ module.exports = {
                 { name: `Event Link:`, value: `${args[3]}`},
             )
             .setTimestamp()
-            .setFooter(`San Andreas Strategic Response Unit 2021`);
+            .setFooter(footer);
 
             channel.send(`<@&> <@&>`, { embed: ingameeb,});
 
-        }
+      }
 
-        // In Class
-        else if (args[0] === `inclass`) {
+      // In Class
+      else if (args[0] === `inclass`) {
             const inclasseb = new Discord.MessageEmbed()
             .setColor(`#000000`)
             .setTitle(`New Basic In Class Training`)
@@ -164,10 +164,9 @@ module.exports = {
                 { name: `Event Link:`, value: `${args[3]}`},
             )
             .setTimestamp()
-            .setFooter(`San Andreas Strategic Response Unit 2021`);
+            .setFooter(footer);
 
             channel.send(`<@&> <@&>`, { embed: inclasseb,});
-
 			}
 
 			// Invalid Training Type

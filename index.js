@@ -1,13 +1,10 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 const {prefix, token, footer} = require("./config.json");
-
 require("discord-reply");
-
 const client = new Discord.Client();
 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
-
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
 	if (event.once) {
@@ -19,6 +16,10 @@ for (const file of eventFiles) {
 
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
+for(const file of commandFiles) {
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
+}
 
 client.on("voiceStateUpdate", (oldState, newState) => {
   // User joins voice channel from none
@@ -130,7 +131,3 @@ client.on("message", function(message) {
 
 client.login(token);
 
-for(const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
-}

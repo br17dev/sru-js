@@ -6,6 +6,8 @@ module.exports = {
         .then(msg => console.log(`Deleted message from ${msg.author.username} after 5000 miliseconds`))
         .catch(console.error);
 
+        const {footer} = require('../config.json')
+
         // Permission Check - SRU Supervisor+
         if(message.member.roles.cache.some(r => r.name === "SRU Supervisor") || message.member.roles.cache.some(r => r.name === "SRU Commander") || message.member.roles.cache.some(r => r.name === "SRU Deputy Director") || message.member.roles.cache.some(r => r.name === "SRU Director")) {
         const channel = client.channels.cache.find(channel => channel.name === "documents")
@@ -66,7 +68,7 @@ module.exports = {
 
         __All documents are the property of SRU and are for in-house use only, please do not copy or distribute without permission.__`)
         .setTimestamp()
-        .setFooter(`San Andreas Strategic Response Unit 2021`);
+        .setFooter(footer);
         channel.send(docseb)
 
         } 

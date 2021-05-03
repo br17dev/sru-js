@@ -11,7 +11,5 @@ module.exports = {
         .setFooter(`San Andreas Strategic Response Unit 2021`)
         .setTimestamp();
         channel.send(welcomeeb)
-
-        
 	},
 };

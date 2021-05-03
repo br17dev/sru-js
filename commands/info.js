@@ -26,7 +26,7 @@ module.exports = {
         {name:`Changelog:`, value: `TBC`, inline:true},
         )
         .setTimestamp()
-        .setFooter(`San Andreas Strategic Response Unit 2021`)
+        .setFooter(config.footer);
         message.lineReply(infoeb)
     }
 };
