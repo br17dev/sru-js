@@ -1,6 +1,7 @@
 module.exports = {
     name: 'documents',
     description: 'Documents command',
+    aliases: ['docs'],
     execute(Discord, client, message, args) {
         message.delete({timeout: 5000})
         .then(msg => console.log(`Deleted message from ${msg.author.username} after 5000 miliseconds`))
